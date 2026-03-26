@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Taberna El Bordón — Marbella</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F5EFE4;
+    --dark: #1A1208;
+    --terracotta: #B85C38;
+    --gold: #C9A84C;
+    --olive: #5C6B3A;
+    --warm-gray: #8C7B6B;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--cream); color: var(--dark); font-family: 'Jost', sans-serif; font-weight: 300; overflow-x: hidden; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 18px 48px; display: flex; align-items: center; justify-content: space-between;
+    background: rgba(245,239,228,0.95); backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+  }
+  .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 500; letter-spacing: 2px; color: var(--dark); text-decoration: none; }
+  .nav-logo span { color: var(--terracotta); font-style: italic; }
+  .nav-links { display: flex; gap: 28px; list-style: none; align-items: center; }
+  .nav-links a { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--warm-gray); text-decoration: none; transition: color 0.3s; }
+  .nav-links a:hover { color: var(--terracotta); }
+  .nav-cta { background: var(--terracotta) !important; color: white !important; padding: 10px 22px !important; }
+  .nav-cta:hover { background: var(--dark) !important; }
+
+  .hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; padding-top: 72px; }
+  .hero-left { display: flex; flex-direction: column; justify-content: center; padding: 80px 64px 80px 80px; }
+  .hero-tag { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 28px; display: flex; align-items: center; gap: 12px; }
+  .hero-tag::before { content: ''; display: block; width: 32px; height: 1px; background: var(--gold); }
+  .hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(48px, 5vw, 76px); font-weight: 300; line-height: 1.05; margin-bottom: 24px; }
+  .hero-title em { font-style: italic; color: var(--terracotta); }
+  .hero-desc { font-size: 15px; line-height: 1.8; color: var(--warm-gray); max-width: 400px; margin-bottom: 40px; }
+  .hero-btns { display: flex; gap: 16px; align-items: center; }
+  .btn-primary { background: var(--terracotta); color: white; padding: 15px 34px; font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; text-decoration: none; font-family: 'Jost', sans-serif; font-weight: 500; transition: all 0.3s; display: inline-block; }
+  .btn-primary:hover { background: var(--dark); }
+  .btn-secondary { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--dark); text-decoration: none; border-bottom: 1px solid var(--gold); padding-bottom: 2px; }
+  .hero-stats { display: flex; gap: 40px; margin-top: 52px; padding-top: 36px; border-top: 1px solid rgba(201,168,76,0.3); }
+  .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 300; color: var(--terracotta); display: block; }
+  .stat-label { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--warm-gray); }
+  .hero-right { position: relative; overflow: hidden; background: var(--dark); }
+  .hero-img { width: 100%; height: 100%; object-fit: cover; opacity: 0.75; transition: transform 8s ease; }
+  .hero-right:hover .hero-img { transform: scale(1.04); }
+  .hero-overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(184,92,56,0.25), rgba(26,18,8,0.55)); z-index: 1; }
+  .hero-badge { position: absolute; bottom: 44px; left: 44px; z-index: 2; background: rgba(245,239,228,0.96); padding: 18px 26px; }
+  .badge-top { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--warm-gray); margin-bottom: 5px; }
+  .badge-text { font-family: 'Cormorant Garamond', serif; font-size: 19px; font-weight: 500; }
+
+  .horario-bar { background: var(--olive); padding: 14px 80px; display: flex; justify-content: center; gap: 44px; flex-wrap: wrap; }
+  .horario-item { display: flex; align-items: center; gap: 10px; color: rgba(245,239,228,0.9); font-size: 13px; }
+  .horario-dot { width: 5px; height: 5px; background: var(--gold); border-radius: 50%; }
+
+  .section-tag { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+  .section-tag::before { content: ''; display: block; width: 32px; height: 1px; background: var(--gold); }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(32px, 3vw, 50px); font-weight: 300; line-height: 1.15; margin-bottom: 16px; }
+  .section-title em { font-style: italic; color: var(--terracotta); }
+  .ornament { text-align: center; color: var(--gold); font-size: 18px; letter-spacing: 8px; margin: 14px 0 48px; opacity: 0.5; }
+
+  .carta-section { padding: 100px 60px; background: var(--cream); }
+  .carta-header { text-align: center; margin-bottom: 16px; }
+  .carta-header .section-tag { justify-content: center; }
+
+  .tabs { display: flex; justify-content: center; flex-wrap: wrap; gap: 4px; margin-bottom: 56px; }
+  .tab-btn {
+    padding: 10px 20px; font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+    font-family: 'Jost', sans-serif; font-weight: 400; cursor: pointer;
+    background: transparent; border: 1px solid rgba(140,123,107,0.3); color: var(--warm-gray);
+    transition: all 0.3s;
+  }
+  .tab-btn:hover { border-color: var(--terracotta); color: var(--terracotta); }
+  .tab-btn.active { background: var(--terracotta); border-color: var(--terracotta); color: white; }
+
+  .menu-panel { display: none; }
+  .menu-panel.active { display: block; }
+
+  .cat-header { text-align: center; margin-bottom: 40px; }
+  .cat-title { font-family: 'Cormorant Garamond', serif; font-size: 40px; font-weight: 300; color: var(--dark); }
+  .cat-title em { font-style: italic; color: var(--terracotta); }
+  .cat-sub { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--warm-gray); margin-top: 8px; }
+
+  .dish-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2px; max-width: 1100px; margin: 0 auto; }
+  .dish-card { background: white; padding: 28px 32px; position: relative; transition: all 0.3s; }
+  .dish-card::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--terracotta); transition: width 0.4s; }
+  .dish-card:hover::after { width: 100%; }
+  .dish-card:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,0.07); }
+  .dish-name { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 500; color: var(--dark); margin-bottom: 6px; line-height: 1.2; }
+  .dish-name-en { font-size: 11px; letter-spacing: 1px; color: var(--warm-gray); text-transform: uppercase; margin-bottom: 10px; font-style: italic; }
+  .dish-desc { font-size: 13px; line-height: 1.7; color: var(--warm-gray); margin-bottom: 14px; }
+  .dish-price { font-family: 'Cormorant Garamond', serif; font-size: 20px; color: var(--terracotta); font-weight: 500; }
+  .dish-price-small { font-size: 12px; color: var(--warm-gray); margin-top: 2px; letter-spacing: 0.5px; }
+
+  .subsection-title { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 300; color: var(--dark); margin: 48px 0 20px; text-align: center; }
+  .subsection-title::after { content: ''; display: block; width: 40px; height: 1px; background: var(--gold); margin: 10px auto 0; }
+
+  .bebidas-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 2px; max-width: 1100px; margin: 0 auto; }
+  .bebida-item { background: white; padding: 18px 24px; display: flex; justify-content: space-between; align-items: center; border-left: 3px solid transparent; transition: all 0.3s; }
+  .bebida-item:hover { border-left-color: var(--terracotta); background: #fdf8f2; }
+  .bebida-name { font-size: 14px; color: var(--dark); font-weight: 400; }
+  .bebida-price { font-family: 'Cormorant Garamond', serif; font-size: 18px; color: var(--terracotta); font-weight: 500; }
+
+  .about { display: grid; grid-template-columns: 1fr 1fr; min-height: 560px; }
+  .about-img { overflow: hidden; background: var(--dark); }
+  .about-img img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; transition: transform 0.8s; }
+  .about-img:hover img { transform: scale(1.04); }
+  .about-content { padding: 90px 72px; background: var(--dark); color: var(--cream); display: flex; flex-direction: column; justify-content: center; }
+  .about-body { font-size: 15px; line-height: 1.9; color: rgba(245,239,228,0.65); margin-bottom: 36px; }
+  .decorative-line { width: 50px; height: 2px; background: var(--terracotta); margin-bottom: 32px; }
+
+  .reserva { padding: 100px 80px; background: var(--cream); display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .reserva-form { background: var(--dark); padding: 52px 44px; }
+  .form-title { font-family: 'Cormorant Garamond', serif; font-size: 34px; font-weight: 300; color: var(--cream); margin-bottom: 6px; }
+  .form-sub { font-size: 12px; color: var(--warm-gray); margin-bottom: 36px; letter-spacing: 0.5px; }
+  .form-group { margin-bottom: 18px; }
+  .form-label { display: block; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 7px; }
+  .form-input { width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(245,239,228,0.12); padding: 13px 16px; color: var(--cream); font-family: 'Jost', sans-serif; font-size: 14px; outline: none; transition: border-color 0.3s; }
+  .form-input:focus { border-color: var(--terracotta); }
+  .form-input::placeholder { color: rgba(245,239,228,0.25); }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .form-submit { width: 100%; background: var(--terracotta); color: white; border: none; padding: 17px; font-family: 'Jost', sans-serif; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; font-weight: 500; cursor: pointer; margin-top: 6px; transition: background 0.3s; }
+  .form-submit:hover { background: var(--gold); }
+  .info-title { font-family: 'Cormorant Garamond', serif; font-size: 46px; font-weight: 300; line-height: 1.1; margin-bottom: 20px; }
+  .info-title em { font-style: italic; color: var(--terracotta); }
+  .info-text { font-size: 15px; line-height: 1.9; color: var(--warm-gray); margin-bottom: 36px; }
+  .contact-items { display: flex; flex-direction: column; gap: 18px; }
+  .contact-item { display: flex; align-items: center; gap: 16px; font-size: 14px; }
+  .contact-icon { width: 42px; height: 42px; background: var(--terracotta); display: flex; align-items: center; justify-content: center; color: white; font-size: 15px; flex-shrink: 0; }
+
+  footer { background: var(--dark); padding: 52px 80px 36px; color: var(--cream); }
+  .footer-top { display: flex; align-items: center; justify-content: space-between; padding-bottom: 36px; border-bottom: 1px solid rgba(245,239,228,0.1); margin-bottom: 32px; }
+  .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 26px; letter-spacing: 2px; }
+  .footer-logo span { color: var(--terracotta); font-style: italic; }
+  .footer-links { display: flex; gap: 28px; list-style: none; }
+  .footer-links a { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: rgba(245,239,228,0.4); text-decoration: none; transition: color 0.3s; }
+  .footer-links a:hover { color: var(--gold); }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: rgba(245,239,228,0.25); }
+  .footer-credit { color: var(--gold); font-size: 11px; letter-spacing: 1px; }
+
+  .preview-badge { position: fixed; bottom: 20px; right: 20px; background: var(--terracotta); color: white; padding: 8px 16px; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; font-family: 'Jost', sans-serif; z-index: 999; box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  .hero-left > * { animation: fadeUp 0.7s ease forwards; opacity: 0; }
+  .hero-left > *:nth-child(1) { animation-delay: 0.1s; }
+  .hero-left > *:nth-child(2) { animation-delay: 0.25s; }
+  .hero-left > *:nth-child(3) { animation-delay: 0.4s; }
+  .hero-left > *:nth-child(4) { animation-delay: 0.55s; }
+  .hero-left > *:nth-child(5) { animation-delay: 0.7s; }
+
+  .quote-banner { background: var(--dark); padding: 60px 80px; text-align: center; }
+  .quote-text { font-family: 'Cormorant Garamond', serif; font-size: clamp(22px, 2.5vw, 34px); font-weight: 300; font-style: italic; color: var(--cream); line-height: 1.5; max-width: 700px; margin: 0 auto 16px; }
+  .quote-author { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); }
+</style>
+</head>
+<body>
+
+<div class="preview-badge">Vista previa — Soul Webs</div>
+
+<nav>
+  <a class="nav-logo" href="#">Taberna <span>El Bordón</span></a>
+  <ul class="nav-links">
+    <li><a href="#nosotros">Nosotros</a></li>
+    <li><a href="#carta">Carta</a></li>
+    <li><a href="#reserva">Contacto</a></li>
+    <li><a href="#reserva" class="nav-cta">Reservar mesa</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">Marbella, Málaga · Arte culinario y flamenco</div>
+    <h1 class="hero-title">Arte y<br><em>Gastronomía</em><br>unidos</h1>
+    <p class="hero-desc">Cocina mediterránea de producto en el corazón de Marbella. Jamón de Jabugo, Atún de Almadraba y sabores que no se olvidan.</p>
+    <div class="hero-btns">
+      <a href="#reserva" class="btn-primary">Reservar mesa</a>
+      <a href="#carta" class="btn-secondary">Ver la carta →</a>
+    </div>
+    <div class="hero-stats">
+      <div><span class="stat-num">4.8★</span><span class="stat-label">Google Maps</span></div>
+      <div><span class="stat-num">100%</span><span class="stat-label">Producto local</span></div>
+      <div><span class="stat-num">D.O.</span><span class="stat-label">Jabugo & Almadraba</span></div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-overlay"></div>
+    <img class="hero-img" src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=900&q=80" alt="Taberna El Bordón">
+    <div class="hero-badge">
+      <div class="badge-top">Reservas · Sin compromiso</div>
+      <div class="badge-text">📞 +34 697 670 690</div>
+    </div>
+  </div>
+</section>
+
+<div class="horario-bar">
+  <div class="horario-item"><div class="horario-dot"></div> Almuerzo: 13:00 – 16:00</div>
+  <div class="horario-item"><div class="horario-dot"></div> Cena: 20:00 – 23:30</div>
+  <div class="horario-item"><div class="horario-dot"></div> Terraza disponible</div>
+  <div class="horario-item"><div class="horario-dot"></div> Eventos privados</div>
+  <div class="horario-item"><div class="horario-dot"></div> Extra pan: 1€ · IVA incluido</div>
+</div>
+
+<section class="about" id="nosotros">
+  <div class="about-img">
+    <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=700&q=80" alt="Interior">
+  </div>
+  <div class="about-content">
+    <div class="section-tag" style="color:var(--gold)">Nuestra historia</div>
+    <h2 class="section-title" style="color:var(--cream);">Una taberna con<br><em>alma propia</em></h2>
+    <div class="decorative-line"></div>
+    <p class="about-body">En Taberna El Bordón el arte culinario y el flamenco conviven en cada rincón. Ingredientes de denominación de origen, técnicas de vanguardia y el alma del sur en cada plato.</p>
+    <p class="about-body">Terraza exterior, música en vivo y una carta que rinde homenaje al producto andaluz. Porque comer bien es también un acto de cultura.</p>
+    <a href="#reserva" class="btn-primary" style="align-self:flex-start; margin-top:4px;">Haznos una visita</a>
+  </div>
+</section>
+
+<div class="quote-banner">
+  <div class="quote-text">"El envoltorio puede ser importante. El contenido, debe serlo."</div>
+  <div class="quote-author">— Paco de Lucía</div>
+</div>
+
+<section class="carta-section" id="carta">
+  <div class="carta-header">
+    <div class="section-tag">Nuestra carta</div>
+    <h2 class="section-title" style="font-size:52px; text-align:center;">Todo el sabor del<br><em>Mediterráneo</em></h2>
+    <div class="ornament">✦ ✦ ✦</div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="showTab('chacina', this)">Chacina & Quesos</button>
+    <button class="tab-btn" onclick="showTab('tostas', this)">Tostas</button>
+    <button class="tab-btn" onclick="showTab('revueltos', this)">Revueltos</button>
+    <button class="tab-btn" onclick="showTab('frios', this)">Entrantes fríos</button>
+    <button class="tab-btn" onclick="showTab('calientes', this)">Entrantes calientes</button>
+    <button class="tab-btn" onclick="showTab('mar', this)">Del mar</button>
+    <button class="tab-btn" onclick="showTab('monte', this)">Del monte</button>
+    <button class="tab-btn" onclick="showTab('postres', this)">Postres</button>
+    <button class="tab-btn" onclick="showTab('bebidas', this)">Bebidas</button>
+  </div>
+
+  <div class="menu-panel active" id="panel-chacina">
+    <div class="cat-header"><div class="cat-title"><em>Chacina</em> & Quesos</div><div class="cat-sub">Cold Meat & Cheeses</div></div>
+    <div class="dish-grid">
+      <div class="dish-card"><div class="dish-name">Jamón Ibérico de Bellota D.O. Jabugo</div><div class="dish-name-en">Iberian Ham D.O. Jabugo</div><div class="dish-price-small">Media 14€ · Ración 24€</div></div>
+      <div class="dish-card"><div class="dish-name">Jamón Ibérico</div><div class="dish-name-en">Iberian Ham</div><div class="dish-price-small">Media 6,50€ · Ración 12€</div></div>
+      <div class="dish-card"><div class="dish-name">Chicharrones de Cádiz</div><div class="dish-name-en">Cádiz Pork Cracklings</div><div class="dish-price-small">Media 6,50€ · Ración 12€</div></div>
+      <div class="dish-card"><div class="dish-name">Lomo de Bellota</div><div class="dish-name-en">Iberian Pork Loin</div><div class="dish-price-small">Media 6,50€ · Ración 12€</div></div>
+      <div class="dish-card"><div class="dish-name">Carne Mechá Serranía de Ronda</div><div class="dish-name-en">Serranía de Ronda-style Slow-cooked Pork</div><div class="dish-price-small">Media 6€ · Ración 10€</div></div>
+      <div class="dish-card"><div class="dish-name">Anchoas del Cantábrico Serie Oro 00</div><div class="dish-name-en">Cantabrian Anchovies "00" Gold Series</div><div class="dish-price-small">Media 6€ · Ración 10€</div></div>
+      <div class="dish-card"><div class="dish-name">Queso Curado de Oveja</div><div class="dish-name-en">Matured Sheep Cheese</div><div class="dish-price-small">Media 6€ · Ración 10€</div></div>
+      <div class="dish-card"><div class="dish-name">Mojama de Atún de Barbate</div><div class="dish-name-en">Dried Salted Tuna</div><div class="dish-price">10,50€</div></div>
+      <div class="dish-card"><div class="dish-name">Huevas de Maruca</div><div class="dish-name-en">Maruca Roe</div><div class="dish-price">10,50€</div></div>
+    </div>
+  </div>
+
+  <div class="menu-panel" id="panel-tostas">
+    <div class="cat-header"><div class="cat-title"><em>Tostas</em></div><div class="cat-sub">Toasts</div></div>
+    <div class="dish-grid">
+      <div class="dish-card"><div class="dish-name">Carne Mechá a la Miel y Mostaza</div><div class="dish-name-en">Slow-cooked Pork with Honey & Mustard</div><div class="dish-price">10,50€</div></div>
+      <div class="dish-card"><div class="dish-name">Jamón Ibérico con Tomate y AOVE</div><div class="dish-name-en">Iberian Ham Toast with Tomato & EVOO</div><div class="dish-price">10,50€</div></div>
+      <div class="dish-card"><div class="dish-name">Presa Ibérica, Pimientos del Padrón y Chutney de Mango</div><div class="dish-name-en">Iberian Pork Toast with Padrón Peppers & Mango Chutney</div><div class="dish-price">10,50€</div></div>
+    </div>
+  </div>
+
+  <div class="menu-panel" id="panel-revueltos">
+    <div class="cat-header"><div class="cat-title"><em>Revueltos</em></div><div class="cat-sub">Scrambled Eggs</div></div>
+    <div class="dish-grid">
+      <div class="dish-card"><div class="dish-name">Revuelto El Bordón</div><div class="dish-name-en">Bordón Scrambled</div><div class="dish-desc">Huevos, patatas, jamón ibérico y presa ibérica al pimentón dulce de La Vera</div><div class="dish-price">12,50€</div></div>
+      <div class="dish-card"><div class="dish-name">Revuelto de Setas con Trufa</div><div class="dish-name-en">Mushroom & Truffle Scrambled</div><div class="dish-desc">Con huevo a baja temperatura, patatas y trufa</div><div class="dish-price">12,50€</div></div>
+      <div class="dish-card"><div class="dish-name">Revuelto de Gambas Pil Pil</div><div class="dish-name-en">Scrambled Eggs with Pil Pil Prawns</div><div class="dish-desc">Con patatas y gambas al pil pil</div><div class="dish-price">12,50€</div></div>
+    </div>
+  </div>
+
+  <div class="menu-panel" id="panel-frios">
+    <div class="cat-header"><div class="cat-title">Entrantes <em>Fríos</em></div><div class="cat-sub">Cold Starters</div></div>
+    <div class="dish-grid">
+      <div class="dish-card"><div class="dish-name">Ensaladilla Rusa</div><div class="dish-name-en">Russian Salad</div><div class="dish-price-small">Media 6,50€ · Ración 9,50€</div></div>
+      <div class="dish-card"><div class="dish-name">Ensalada César</div><div class="dish-name-en">Caesar Salad</div><div class="dish-price">11,50€</div></div>
+      <div class="dish-card"><div class="dish-name">Ensalada Queso de Cabra</div><div class="dish-name-en">Goat Cheese Salad</div><div class="dish-price">10,50€</div></div>
+      <div class="dish-card"><div class="dish-name">Tomate Castellano Aliñado</div><div class="dish-name-en">Castillian Tomato Salad</div><div class="dish-price-small">Media 7€ · Ración 12€</div></div>
+      <div class="dish-card"><div class="dish-name">Gambas Blancas de Huelva Cocidas</div><div class="dish-name-en">Boiled White Prawns from Huelva</div><div class="dish-price">9,50€</div></div>
+      <div class="dish-card"><div class="dish-name">Gildas de Atún Rojo, Queso Manchego y Cereza Confitada</div><div class="dish-name-en">Bluefin Tuna Gildas, Manchego & Candied Cherry</div><div class="dish-price-small">Media 12€ · Ración 18€</div></div>
+      <div class="dish-card"><div class="dish-name">Ensaladilla Rusa con Atún Rojo de Almadraba</div><div class="dish-name-en">Russian Salad with Wild Almadraba Bluefin Tuna</div><div class="dish-price">22€</div></div>
+      <div class="dish-card"><div class="dish-name">Carpaccio de Vacuno Mayor con Rúcula y Parmesano</div><div class="dish-name-en">Beef Carpaccio with Arugula and Parmesan</div><div class="dish-price">22€</div></div>
+      <div class="dish-card"><div class="dish-name">Tartar de Atún Rojo Salvaje de Almadraba</div><div class="dish-name-en">Wild Almadraba Bluefin Tuna Tartare</div><div class="dish-price-small">Media 6€ · Ración 9€</div></div>
+      <div class="dish-card"><div class="dish-name">Mejillones de Barbate al Vapor</div><div class="dish-name-en">Steamed Mussels</div><div class="dish-price">9,50€</div></div>
+    </div>
+  </div>
+
+  <div class="menu-panel" id="panel-calientes">
+    <div class="cat-header"><div class="cat-title">Entrantes <em>Calientes</em></div><div class="cat-sub">Hot Starters</div></div>
+    <div class="subsection-title" style="font-size:22px; margin-top:0;">Croquetones</div>
+    <div class="dish-grid">
+      <div class="dish-card"><div class="dish-name">Croquetón de Chuletón Madurado</div><div class="dish-name-en">Aged Steak Croquetón with Spanish Sauce & White Chocolate</div><div class="dish-price">14€ <span style="font-size:13px;color:var(--warm-gray)">/ 4 uds</span></div></div>
+      <div class="dish-card"><div class="dish-name">Falso Nigiri Crujiente de Wagyu y Huevo de Codorniz</div><div class="dish-name-en">Crispy Wagyu & Quail Egg Nigiri-style Bite</div><div class="dish-price">14€ <span style="font-size:13px;color:var(--warm-gray)">/ 4 uds</span></div></div>
+      <div class="dish-card"><div class="dish-name">Croquetón de Gambón con Mayonesa de Queso de Oveja</div><div class="dish-name-en">Prawn Croquetón with Matured Sheep Cheese Mayonnaise</div><div class="dish-price">14€ <span style="font-size:13px;color:var(--warm-gray)">/ 4 uds</span></div></div>
+      <div class="dish-card"><div class="dish-name">Croquetón de Jamón Ibérico en Panko</div><div class="dish-name-en">Iberian Ham Croquetón in Panko & Peppermint Mayonnaise</div><div class="dish-price">10,50€ <span style="font-size:13px;color:var(--warm-gray)">/ 4 uds</span></div></div>
+      <div class="dish-card"><div class="dish-name">Croquetón de Boletus y Mayonesa Trufada</div><div class="dish-name-en">Mushroom Croquetón with Truffle Mayonnaise</div><div class="dish-price">10,50€ <span style="font-size:13px;color:var(--warm-gray)">/ 4 uds</span></div></div>
+      <div class="dish-card" style="background:rgba(184,92,56,0.05); border-left:3px solid var(--terracotta);"><div class="dish-name">Morcilla de Arroz, Foie de Pato y Reducción de PX</div><div class="dish-name-en">Black Pudding with Rice, Duck Foie & PX Reduction</div><div class="dish-price">5€ <span style="font-size:13px;color:var(--warm-gray)">/ ud</span></div></div>
+    </div>
+    <div class="subsection-title">Brioches & Más</div>
+    <div class="dish-grid">
+      <div class="dish-card"><div class="dish-name">Brioche de Tartar de Atún Rojo con Wasabi y Wakame</div><div class="dish-name-en">Bluefin Tuna Tartare Brioche with Wasabi Cream & Wakame</div><div class="dish-price">8,50€</div></div>
+      <div class="dish-card"><div class="dish-name">Brioche de Carrillada Ibérica y Mayonesa de Parmesano</div><div class="dish-name-en">Iberian Cheek Brioche and Parmesan Cheese Mayonnaise</div><div class="dish-price">7,50€</div></div>
+      <div class="dish-card"><div class="dish-name">Brioche de Steak Tartar con Crema de Foie al Pedro Ximénez</div><div class="dish-name-en">Steak Tartare Brioche with Pedro Ximénez Foie Cream</div><div class="dish-price">7,50€</div></div>
+      <div class="dish-card"><div class="dish-name">Flor de Alcachofa Confitada con Virutas de Jamón</div><div class="dish-name-en">Candied Artichoke Flower with Iberian Ham Shavings</div><div class="dish-price">7,50€</div></div>
+      <div class="dish-card"><div class="dish-name">Patatas Bravas con Salsa Kimchi</div><div class="dish-name-en">Spicy Potatoes with Kimchi Sauce</div><div class="dish-price">8,50€</div></div>
+      <div class="dish-card"><div class="dish-name">Crujientes de Langostino</div><div class="dish-name-en">Crispy Prawns</div><div class="dish-price">11,50€</div></div>
+      <div class="dish-card"><div class="dish-name">Gambas Pil Pil</div><div class="dish-name-en">Pil Pil Prawns</div><div class="dish-price">12€</div></div>
+    </div>
+  </div>
+
+  <div class="menu-panel" id="panel-mar">
+    <div class="cat-header"><div class="cat-title">Del <em>Mar</em></div><div class="cat-sub">Seafood</div></div>
+    <div class="dish-grid">
+      <div class="dish-card"><div class="dish-name">Tortilla de Camarones</div><div class="dish-name-en">Andalusian-style Shrimp Omelette</div><div class="dish-price">4€ <span style="font-size:13px;color:var(--warm-gray)">/ud</span></div></div>
+      <div class="dish-card" style="background:rgba(184,92,56,0.05); border-left:3px solid var(--terracotta);"><div class="dish-name">Ventresca de Atún Rojo Salvaje de Almadraba a la Brasa</div><div class="dish-name-en">Grilled Almadraba Wild Bluefin Tuna Belly</div><div class="dish-price">26€</div></div>
+      <div class="dish-card"><div class="dish-name">Calamares Baby</div><div class="dish-name-en">Baby Squid</div><div class="dish-price">12,50€</div></div>
+      <div class="dish-card"><div class="dish-name">Pulpo a la Brasa con Parmentier de Boniato, Miso y Pimentón</div><div class="dish-name-en">Grilled Octopus with Sweet Potato Parmentier, Miso & Paprika</div><div class="dish-price">26€</div></div>
+    </div>
+  </div>
+
+  <div class="menu-panel" id="panel-monte">
+    <div class="cat-header"><div class="cat-title">Del <em>Monte</em></div><div class="cat-sub">Meat</div></div>
+    <div class="dish-grid">
+      <div class="dish-card"><div class="dish-name">Mini Hamburguesa de Buey</div><div class="dish-name-en">Ox Mini Burger</div><div class="dish-price">9,50€ <span style="font-size:13px;color:var(--warm-gray)">/ 2 uds</span></div></div>
+      <div class="dish-card" style="background:rgba(184,92,56,0.05); border-left:3px solid var(--terracotta);"><div class="dish-name">Cachopo de Trufa y Huevo a Baja Temperatura</div><div class="dish-name-en">Asturian Beef with Truffle & Low Temperature Egg</div><div class="dish-price">24€</div></div>
+      <div class="dish-card"><div class="dish-name">Carrillada Ibérica</div><div class="dish-name-en">Iberian Pork Cheek</div><div class="dish-price">12,50€</div></div>
+      <div class="dish-card"><div class="dish-name">Solomillo en Salsa de Champiñón</div><div class="dish-name-en">Sirloin Steak with Mushroom Sauce</div><div class="dish-price">12€</div></div>
+      <div class="dish-card"><div class="dish-name">Entrecot de Ternera a la Parrilla</div><div class="dish-name-en">Grilled Beef Entrecote</div><div class="dish-price">11,50€</div></div>
+      <div class="dish-card"><div class="dish-name">Presa Ibérica</div><div class="dish-name-en">Iberian Pork</div><div class="dish-price">24,50€</div></div>
+      <div class="dish-card"><div class="dish-name">Lagrimitas de Pollo</div><div class="dish-name-en">Marinated Fried Chicken Strips</div><div class="dish-price">18,50€</div></div>
+      <div class="dish-card"><div class="dish-name">Magret de Pato con Parmentier de Boniato y Tartar de Piña con PX</div><div class="dish-name-en">Duck Magret with Sweet Potato Parmentier & Pineapple Tartare with PX Reduction</div><div class="dish-price">18,50€</div></div>
+    </div>
+  </div>
+
+  <div class="menu-panel" id="panel-postres">
+    <div class="cat-header"><div class="cat-title">Algo <em>Dulce</em></div><div class="cat-sub">Desserts</div></div>
+    <div class="dish-grid" style="max-width:800px;">
+      <div class="dish-card"><div class="dish-name">Tarta de Queso con Crema de Pistacho</div><div class="dish-name-en">Cheesecake with Pistachio Cream</div><div class="dish-price">8,50€</div></div>
+      <div class="dish-card"><div class="dish-name">Torrija de Brioche en Sopa de Turrón Helado</div><div class="dish-name-en">Brioche French Toast with Nougat Ice Cream Soup</div><div class="dish-price">7€</div></div>
+      <div class="dish-card"><div class="dish-name">Tartar de Piña con Sorbete de Mojito</div><div class="dish-name-en">Pineapple Tartare with Mojito Sorbet</div><div class="dish-price">7€</div></div>
+      <div class="dish-card"><div class="dish-name">Coulant de Chocolate y Helado de Vainilla</div><div class="dish-name-en">Molten Chocolate Cake with Vanilla Ice Cream</div><div class="dish-price">8,50€</div></div>
+    </div>
+  </div>
+
+  <div class="menu-panel" id="panel-bebidas">
+    <div class="cat-header"><div class="cat-title"><em>Bebidas</em></div><div class="cat-sub">Drinks</div></div>
+    <div class="subsection-title" style="margin-top:0; font-size:20px;">Cervezas</div>
+    <div class="bebidas-grid">
+      <div class="bebida-item"><span class="bebida-name">Cerveza Victoria en Copa</span><span class="bebida-price">2,50€</span></div>
+      <div class="bebida-item"><span class="bebida-name">Cerveza Victoria en Sidra</span><span class="bebida-price">3,50€</span></div>
+      <div class="bebida-item"><span class="bebida-name">Tercio Victoria 0,0 (Sin alcohol)</span><span class="bebida-price">3€</span></div>
+      <div class="bebida-item"><span class="bebida-name">Tercio Alhambra Verde</span><span class="bebida-price">3,50€</span></div>
+      <div class="bebida-item"><span class="bebida-name">Tercio Daura Sin Gluten</span><span class="bebida-price">3,50€</span></div>
+      <div class="bebida-item"><span class="bebida-name">Free Damm 0,0 Sin Gluten</span><span class="bebida-price">3,50€</span></div>
+    </div>
+    <div class="subsection-title" style="font-size:20px;">Refrescos & Agua</div>
+    <div class="bebidas-grid">
+      <div class="bebida-item"><span class="bebida-name">Refrescos</span><span class="bebida-price">2,50€</span></div>
+      <div class="bebida-item"><span class="bebida-name">Zumos</span><span class="bebida-price">2,50€</span></div>
+      <div class="bebida-item"><span class="bebida-name">Nestea / Aquarius</span><span class="bebida-price">2,50€</span></div>
+      <div class="bebida-item"><span class="bebida-name">Agua con gas</span><span class="bebida-price">2,50€</span></div>
+      <div class="bebida-item"><span class="bebida-name">Agua sin gas</span><span class="bebida-price">2,50€</span></div>
+      <div class="bebida-item"><span class="bebida-name">Red Bull</span><span class="bebida-price">3,50€</span></div>
+    </div>
+    <div class="subsection-title" style="font-size:20px;">Sangría & Cócteles</div>
+    <div class="bebidas-grid">
+      <div class="bebida-item"><span class="bebida-name">Tinto de Verano</span><span class="bebida-price">3,50€</span></div>
+      <div class="bebida-item"><span class="bebida-name">Vermut</span><span class="bebida-price">5€</span></div>
+      <div class="bebida-item"><span class="bebida-name">Copa Sangría Tradicional</span><span class="bebida-price">5,50€</span></div>
+      <div class="bebida-item"><span class="bebida-name">Jarra Sangría Tradicional</span><span class="bebida-price">15€</span></div>
+      <div class="bebida-item"><span class="bebida-name">Copa Sangría Fruta de la Pasión</span><span class="bebida-price">7€</span></div>
+      <div class="bebida-item"><span class="bebida-name">Jarra Sangría Fruta de la Pasión</span><span class="bebida-price">20€</span></div>
+      <div class="bebida-item"><span class="bebida-name">Copa Sangría de Coco</span><span class="bebida-price">7€</span></div>
+      <div class="bebida-item"><span class="bebida-name">Copa Sangría de Cava</span><span class="bebida-price">7€</span></div>
+      <div class="bebida-item"><span class="bebida-name">Copa Sangría de Melón</span><span class="bebida-price">7€</span></div>
+      <div class="bebida-item"><span class="bebida-name">Jarra Sangría de Melón</span><span class="bebida-price">20€</span></div>
+      <div class="bebida-item"><span class="bebida-name">Jarra Sangría de Coco</span><span class="bebida-price">20€</span></div>
+      <div class="bebida-item"><span class="bebida-name">Jarra Sangría de Cava</span><span class="bebida-price">20€</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="reserva" id="reserva">
+  <div class="reserva-info">
+    <div class="section-tag">¿Nos visitas?</div>
+    <h2 class="info-title">Reserva tu<br><em>mesa</em> hoy</h2>
+    <p class="info-text">Llámanos o rellena el formulario y confirmamos tu reserva en menos de 2 horas. También puedes pasarte sin reserva, siempre intentamos tenerte un hueco.</p>
+    <div class="contact-items">
+      <div class="contact-item"><div class="contact-icon">📞</div><div><div style="font-weight:500">+34 697 670 690</div><div style="font-size:12px;color:var(--warm-gray)">Lunes a domingo · 12:00–23:30</div></div></div>
+      <div class="contact-item"><div class="contact-icon">📍</div><div><div style="font-weight:500">C. Pantaleón, 4-1</div><div style="font-size:12px;color:var(--warm-gray)">29601 Marbella, Málaga</div></div></div>
+      <div class="contact-item"><div class="contact-icon">✉️</div><div><div style="font-weight:500">elbordontaberna@gmail.com</div><div style="font-size:12px;color:var(--warm-gray)">Respondemos en menos de 24h</div></div></div>
+      <div class="contact-item"><div class="contact-icon">📱</div><div><div style="font-weight:500">@elbordontaberna</div><div style="font-size:12px;color:var(--warm-gray)">Síguenos en Instagram</div></div></div>
+    </div>
+  </div>
+  <div class="reserva-form">
+    <div class="form-title">Haz tu reserva</div>
+    <div class="form-sub">Confirmación en menos de 2 horas</div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">Nombre</label><input class="form-input" type="text" placeholder="Tu nombre"></div>
+      <div class="form-group"><label class="form-label">Teléfono</label><input class="form-input" type="tel" placeholder="+34 600 000 000"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">Fecha</label><input class="form-input" type="date"></div>
+      <div class="form-group"><label class="form-label">Hora</label><input class="form-input" type="time"></div>
+    </div>
+    <div class="form-group"><label class="form-label">Número de personas</label><input class="form-input" type="number" placeholder="2 personas" min="1" max="20"></div>
+    <div class="form-group"><label class="form-label">Notas especiales</label><input class="form-input" type="text" placeholder="Alergias, celebración, preferencias..."></div>
+    <button class="form-submit">Solicitar reserva</button>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div class="footer-logo">Taberna <span>El Bordón</span></div>
+    <ul class="footer-links">
+      <li><a href="#nosotros">Nosotros</a></li>
+      <li><a href="#carta">Carta</a></li>
+      <li><a href="#reserva">Reservas</a></li>
+    </ul>
+  </div>
+  <div class="footer-bottom">
+    <div>© 2026 Taberna El Bordón · C. Pantaleón, 4-1, Marbella · +34 697 670 690</div>
+    <div class="footer-credit">Diseñado por Soul Webs · soulwebsites.com</div>
+  </div>
+</footer>
+
+<script>
+function showTab(id, btn) {
+  document.querySelectorAll('.menu-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
