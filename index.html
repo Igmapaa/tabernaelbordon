@@ -139,8 +139,8 @@
   .contact-icon{width:40px;height:40px;background:var(--terracotta);display:flex;align-items:center;justify-content:center;color:white;font-size:15px;flex-shrink:0}
 
   /* FOOTER */
-  footer{background:var(--dark);padding:0 64px 30px;color:var(--cream)}
-  .horario-bar{background:var(--olive);padding:13px 32px;display:flex;justify-content:center;gap:28px;flex-wrap:wrap;margin:0 -64px 40px}
+  footer{background:var(--dark);padding:44px 64px 30px;color:var(--cream)}
+  .horario-bar{background:var(--olive);padding:13px 32px;display:flex;justify-content:center;gap:28px;flex-wrap:wrap}
   .footer-top{display:flex;align-items:center;justify-content:space-between;padding-bottom:28px;border-bottom:1px solid rgba(245,239,228,0.1);margin-bottom:24px;gap:20px;flex-wrap:wrap}
   .footer-logo{font-family:'Cormorant Garamond',serif;font-size:22px;letter-spacing:2px}
   .footer-logo span{color:var(--terracotta);font-style:italic}
@@ -161,7 +161,7 @@
   @media(max-width:1024px){
     nav{padding:14px 24px}.hero-left{padding:48px 32px 48px 40px}
     .about-content{padding:52px 36px}.reserva{padding:64px 40px;gap:40px}
-    footer{padding:0 40px 24px}.horario-bar{margin:0 -40px 36px}.carta-section{padding:64px 28px}
+    footer{padding:36px 40px 24px}.carta-section{padding:64px 28px}
   }
 
   /* MOBILE */
@@ -190,8 +190,8 @@
     .reserva{grid-template-columns:1fr;padding:52px 22px;gap:36px}
     .reserva-form{padding:32px 22px}
     .form-row{grid-template-columns:1fr}
-    footer{padding:0 22px 24px}
-    .horario-bar{margin:0 -22px 32px;padding:11px 18px;gap:10px;justify-content:flex-start}
+    footer{padding:36px 22px 24px}
+    .horario-bar{padding:11px 18px;gap:10px;justify-content:flex-start}
     .footer-top{flex-direction:column;align-items:flex-start;gap:18px}
     .footer-bottom{flex-direction:column;align-items:flex-start}
     .quote-banner{padding:40px 22px}
@@ -271,7 +271,12 @@
   </div>
 </section>
 
-
+<div class="horario-bar">
+  <div class="horario-item"><div class="horario-dot"></div><span data-lang="es">Almuerzo: 13:00–16:00</span><span data-lang="en">Lunch: 1–4 PM</span></div>
+  <div class="horario-item"><div class="horario-dot"></div><span data-lang="es">Cena: 20:00–23:30</span><span data-lang="en">Dinner: 8–11:30 PM</span></div>
+  <div class="horario-item"><div class="horario-dot"></div><span data-lang="es">Terraza disponible</span><span data-lang="en">Terrace available</span></div>
+  <div class="horario-item"><div class="horario-dot"></div><span data-lang="es">Eventos privados</span><span data-lang="en">Private events</span></div>
+</div>
 
 <section class="about" id="nosotros">
   <div class="about-img"><img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=700&q=80" alt="Interior"></div>
@@ -470,7 +475,7 @@
     <div class="contact-items">
       <a href="tel:+34697670690" style="text-decoration:none;color:inherit"><div class="contact-item"><div class="contact-icon">📞</div><div><div style="font-weight:500">+34 697 670 690</div><div style="font-size:12px;color:var(--warm-gray)">12:00–23:30</div></div></div></a>
       <a href="https://maps.google.com/?q=C.+Pantaleón,+4-1,+29601+Marbella" target="_blank" style="text-decoration:none;color:inherit"><div class="contact-item"><div class="contact-icon">📍</div><div><div style="font-weight:500">C. Pantaleón, 4-1</div><div style="font-size:12px;color:var(--warm-gray)">29601 Marbella, Málaga</div></div></div></a>
-      <a href="mailto:elbordontaberna@gmail.com" style="text-decoration:none;color:inherit"><div class="contact-item"><div class="contact-icon">✉️</div><div><div style="font-weight:500">elbordontaberna@gmail.com</div></div></div></a>
+      <a href="/cdn-cgi/l/email-protection#96f3faf4f9e4f2f9f8e2f7f4f3e4f8f7d6f1fbf7fffab8f5f9fb" style="text-decoration:none;color:inherit"><div class="contact-item"><div class="contact-icon">✉️</div><div><div style="font-weight:500"><span class="__cf_email__" data-cfemail="dbbeb7b9b4a9bfb4b5afbab9bea9b5ba9bbcb6bab2b7f5b8b4b6">[email&#160;protected]</span></div></div></div></a>
       <a href="https://instagram.com/elbordontaberna" target="_blank" style="text-decoration:none;color:inherit"><div class="contact-item"><div class="contact-icon">📱</div><div><div style="font-weight:500">@elbordontaberna</div><div style="font-size:12px;color:var(--warm-gray)">Instagram</div></div></div></a>
     </div>
   </div>
@@ -492,12 +497,6 @@
 </section>
 
 <footer>
-  <div class="horario-bar">
-    <div class="horario-item"><div class="horario-dot"></div><span data-lang="es">Almuerzo: 13:00–16:00</span><span data-lang="en">Lunch: 1–4 PM</span></div>
-    <div class="horario-item"><div class="horario-dot"></div><span data-lang="es">Cena: 20:00–23:30</span><span data-lang="en">Dinner: 8–11:30 PM</span></div>
-    <div class="horario-item"><div class="horario-dot"></div><span data-lang="es">Terraza disponible</span><span data-lang="en">Terrace available</span></div>
-    <div class="horario-item"><div class="horario-dot"></div><span data-lang="es">Eventos privados</span><span data-lang="en">Private events</span></div>
-  </div>
   <div class="footer-top">
     <div class="footer-logo">Taberna <span>El Bordón</span></div>
     <ul class="footer-links">
@@ -512,7 +511,7 @@
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 function setLang(lang) {
   document.body.className = 'lang-' + lang;
   document.querySelectorAll('.lang-btn').forEach(b => {
@@ -522,10 +521,4 @@ function setLang(lang) {
 }
 function showTab(id, btn) {
   document.querySelectorAll('.menu-panel').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('panel-' + id).classList.add('active');
-  btn.classList.add('active');
-}
-function toggleMenu() {
-  document.getElementById('hamburger').classList.toggle('open');
-  document.get
+  document.querySelectorAll('.t
